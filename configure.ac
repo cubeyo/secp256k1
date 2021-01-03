@@ -141,6 +141,11 @@ AC_ARG_ENABLE(module_schnorrsig,
     [enable_module_schnorrsig=$enableval],
     [enable_module_schnorrsig=no])
 
+AC_ARG_ENABLE(module_sss,
+    AS_HELP_STRING([--enable-module-sss],[enable shamir secret sharing module (experimental)]),
+    [enable_module_sss=$enableval],
+    [enable_module_sss=no])
+
 AC_ARG_ENABLE(external_default_callbacks,
     AS_HELP_STRING([--enable-external-default-callbacks],[enable external default callback functions [default=no]]),
     [use_external_default_callbacks=$enableval],
@@ -447,6 +452,10 @@ if test x"$enable_module_extrakeys" = x"yes"; then
   AC_DEFINE(ENABLE_MODULE_EXTRAKEYS, 1, [Define this symbol to enable the extrakeys module])
 fi
 
+if test x"$enable_module_sss" = x"yes"; then
+  AC_DEFINE(ENABLE_MODULE_SSS, 1, [Define this symbol to enable the shamir secret sharing module])
+fi
+
 if test x"$use_external_asm" = x"yes"; then
   AC_DEFINE(USE_EXTERNAL_ASM, 1, [Define this symbol if an external (non-inline) assembly implementation is used])
 fi
@@ -461,6 +470,7 @@ if test x"$enable_experimental" = x"yes"; then
   AC_MSG_NOTICE([Experimental features do not have stable APIs or properties, and may not be safe for production use.])
   AC_MSG_NOTICE([Building extrakeys module: $enable_module_extrakeys])
   AC_MSG_NOTICE([Building schnorrsig module: $enable_module_schnorrsig])
+  AC_MSG_NOTICE([Building sss module: $enable_module_sss])
   AC_MSG_NOTICE([******])
 else
   if test x"$enable_module_extrakeys" = x"yes"; then
@@ -468,6 +478,9 @@ else
   fi
   if test x"$enable_module_schnorrsig" = x"yes"; then
     AC_MSG_ERROR([schnorrsig module is experimental. Use --enable-experimental to allow.])
+  fi
+  if test x"$enable_module_sss" = x"yes"; then
+    AC_MSG_ERROR([sss module is experimental. Use --enable-experimental to allow.])
   fi
   if test x"$set_asm" = x"arm"; then
     AC_MSG_ERROR([ARM assembly optimization is experimental. Use --enable-experimental to allow.])
@@ -489,6 +502,7 @@ AM_CONDITIONAL([ENABLE_MODULE_ECDH], [test x"$enable_module_ecdh" = x"yes"])
 AM_CONDITIONAL([ENABLE_MODULE_RECOVERY], [test x"$enable_module_recovery" = x"yes"])
 AM_CONDITIONAL([ENABLE_MODULE_EXTRAKEYS], [test x"$enable_module_extrakeys" = x"yes"])
 AM_CONDITIONAL([ENABLE_MODULE_SCHNORRSIG], [test x"$enable_module_schnorrsig" = x"yes"])
+AM_CONDITIONAL([ENABLE_MODULE_SSS], [test x"$enable_module_sss" = x"yes"])
 AM_CONDITIONAL([USE_EXTERNAL_ASM], [test x"$use_external_asm" = x"yes"])
 AM_CONDITIONAL([USE_ASM_ARM], [test x"$set_asm" = x"arm"])
 
@@ -511,6 +525,7 @@ echo "  module ecdh             = $enable_module_ecdh"
 echo "  module recovery         = $enable_module_recovery"
 echo "  module extrakeys        = $enable_module_extrakeys"
 echo "  module schnorrsig       = $enable_module_schnorrsig"
+echo "  module sss              = $enable_module_sss"
 echo
 echo "  asm                     = $set_asm"
 echo "  bignum                  = $set_bignum"
