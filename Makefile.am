@@ -162,3 +162,7 @@ endif
 if ENABLE_MODULE_SCHNORRSIG
 include src/modules/schnorrsig/Makefile.am.include
 endif
+
+if ENABLE_MODULE_SSS
+include src/modules/sss/Makefile.am.include
+endif

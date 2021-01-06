@@ -1,0 +1,8 @@
+include_HEADERS += include/secp256k1_sss.h
+noinst_HEADERS += src/modules/sss/main_impl.h
+noinst_HEADERS += src/modules/sss/tests_impl.h
+if USE_BENCHMARK
+noinst_PROGRAMS += bench_sss
+bench_sss_SOURCES = src/bench_sss.c
+bench_sss_LDADD = libsecp256k1.la $(SECP_LIBS) $(COMMON_LIB)
+endif
