@@ -1,3 +1,9 @@
+/***********************************************************************
+ * Copyright (c) 2020-2021 JK Zhou                                     *
+ * Distributed under the MIT software license, see the accompanying    *
+ * file COPYING or https://www.opensource.org/licenses/mit-license.php.*
+ ***********************************************************************/
+
 #ifndef _SECP256K1_MODULE_SSS_MAIN_
 #define _SECP256K1_MODULE_SSS_MAIN_
 
